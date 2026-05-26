@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "author": "ITMO ASC project",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-uno",
+      "id": "uno",
+      "top": 40,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "sonar",
+      "top": -220,
+      "left": 110,
+      "attrs": {
+        "distance": "120"
+      }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "scannerServo",
+      "top": -80,
+      "left": 245,
+      "attrs": {
+        "horn": "single",
+        "hornColor": "#333333"
+      }
+    },
+    {
+      "type": "wokwi-a4988",
+      "id": "leftDriver",
+      "top": 50,
+      "left": 95,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-a4988",
+      "id": "rightDriver",
+      "top": 50,
+      "left": 255,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "leftMotor",
+      "top": 180,
+      "left": 75,
+      "attrs": {
+        "size": "17",
+        "display": "angle",
+        "arrow": "green"
+      }
+    },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "rightMotor",
+      "top": 180,
+      "left": 315,
+      "attrs": {
+        "size": "17",
+        "display": "angle",
+        "arrow": "orange"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledGreen",
+      "top": -140,
+      "left": -70,
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rGreen",
+      "top": -82,
+      "left": -82,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledRed",
+      "top": -140,
+      "left": -5,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rRed",
+      "top": -82,
+      "left": -17,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 5,
+      "left": -5,
+      "attrs": {
+        "volume": "0.1"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelLeft",
+      "top": 20,
+      "left": 90,
+      "attrs": {
+        "text": "Left A4988"
+      }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "labelRight",
+      "top": 20,
+      "left": 250,
+      "attrs": {
+        "text": "Right A4988"
+      }
+    }
+  ],
+  "connections": [
+    [ "sonar:VCC", "uno:5V", "red", [ "v0", "h-120", "v305" ] ],
+    [ "sonar:GND", "uno:GND.1", "black", [ "v18", "h-160", "v305" ] ],
+    [ "sonar:TRIG", "uno:7", "yellow", [ "v35", "h-210", "v175" ] ],
+    [ "sonar:ECHO", "uno:8", "green", [ "v50", "h-225", "v155" ] ],
+
+    [ "scannerServo:V+", "uno:5V", "red", [ "h-35", "v285", "h-330" ] ],
+    [ "scannerServo:GND", "uno:GND.1", "black", [ "h-55", "v275", "h-315" ] ],
+    [ "scannerServo:PWM", "uno:9", "orange", [ "h-165", "v165", "h-185" ] ],
+
+    [ "leftDriver:VDD", "uno:5V", "red", [ "v-20", "h-185", "v245" ] ],
+    [ "leftDriver:VMOT", "uno:5V", "red", [ "v60", "h-185", "v170" ] ],
+    [ "leftDriver:GND", "uno:GND.2", "black", [ "v35", "h-195", "v165" ] ],
+    [ "leftDriver:RESET", "uno:5V", "red", [ "h-30", "v210" ] ],
+    [ "leftDriver:SLEEP", "uno:5V", "red", [ "h-40", "v220" ] ],
+    [ "leftDriver:ENABLE", "uno:4", "blue", [ "h-90", "v35", "h-115" ] ],
+    [ "leftDriver:STEP", "uno:5", "purple", [ "h-105", "v20", "h-100" ] ],
+    [ "leftDriver:DIR", "uno:2", "cyan", [ "h-120", "v5", "h-80" ] ],
+
+    [ "rightDriver:VDD", "uno:5V", "red", [ "v-30", "h-345", "v255" ] ],
+    [ "rightDriver:VMOT", "uno:5V", "red", [ "v65", "h-345", "v180" ] ],
+    [ "rightDriver:GND", "uno:GND.2", "black", [ "v40", "h-350", "v175" ] ],
+    [ "rightDriver:RESET", "uno:5V", "red", [ "h-35", "v220" ] ],
+    [ "rightDriver:SLEEP", "uno:5V", "red", [ "h-45", "v230" ] ],
+    [ "rightDriver:ENABLE", "uno:12", "blue", [ "h-260", "v-35" ] ],
+    [ "rightDriver:STEP", "uno:6", "purple", [ "h-245", "v0" ] ],
+    [ "rightDriver:DIR", "uno:3", "cyan", [ "h-230", "v20" ] ],
+
+    [ "leftDriver:1B", "leftMotor:B-", "orange", [ "h-20", "v125" ] ],
+    [ "leftDriver:1A", "leftMotor:B+", "orange", [ "h-10", "v110" ] ],
+    [ "leftDriver:2A", "leftMotor:A+", "brown", [ "h0", "v95" ] ],
+    [ "leftDriver:2B", "leftMotor:A-", "brown", [ "h10", "v80" ] ],
+
+    [ "rightDriver:1B", "rightMotor:B-", "orange", [ "h85", "v125" ] ],
+    [ "rightDriver:1A", "rightMotor:B+", "orange", [ "h100", "v110" ] ],
+    [ "rightDriver:2A", "rightMotor:A+", "brown", [ "h115", "v95" ] ],
+    [ "rightDriver:2B", "rightMotor:A-", "brown", [ "h130", "v80" ] ],
+
+    [ "ledGreen:A", "rGreen:1", "green", [ "v15" ] ],
+    [ "rGreen:2", "uno:10", "green", [ "v45", "h-120", "v90" ] ],
+    [ "ledGreen:C", "uno:GND.1", "black", [ "v35", "h-155", "v220" ] ],
+
+    [ "ledRed:A", "rRed:1", "red", [ "v15" ] ],
+    [ "rRed:2", "uno:11", "red", [ "v45", "h-150", "v95" ] ],
+    [ "ledRed:C", "uno:GND.1", "black", [ "v35", "h-205", "v220" ] ],
+
+    [ "buzzer:1", "uno:13", "purple", [ "h-105", "v-35" ] ],
+    [ "buzzer:2", "uno:GND.1", "black", [ "h-135", "v-55" ] ]
+  ],
+  "serialMonitor": {
+    "display": "always",
+    "newline": "lf"
+  }
+}
